@@ -2,20 +2,20 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\BaseBookSearch;
+use AppBundle\Service\BookSearchService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        /** @var BookSearchService $service */
+        $service = $this->get(BookSearchService::SERVICE_NAME);
+
+        return $service->search($request->request->all());
     }
 }

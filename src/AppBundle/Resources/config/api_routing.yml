@@ -1,0 +1,4 @@
+api_index:
+    type: rest
+    resource: "AppBundle\Controller\DefaultController"
+    name_prefix:  api_
