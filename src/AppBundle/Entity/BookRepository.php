@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookRepository extends EntityRepository
 {
+    public function searchByParameters($params = array())
+    {
+        $qb = $this->createQueryBuilder('b');
+        if (!empty($params['isbn'])) {
+            $qb->andWhere('b.isbn LIKE :isbn')
+                ->setParameter('isbn', sprintf('\%%s\%', $params['isbn']));
+        }
+        if (!empty($params['author'])) {
+            $qb->andWhere('b.author LIKE :author')
+                ->setParameter('author', sprintf('\%%s\%', $params['author']));
+        }
+        if (!empty($params['title'])) {
+            $qb->andWhere('b.title LIKE :title')
+                ->setParameter('title', sprintf('\%%s\%', $params['title']));
+        }
+
+        return $qb->getQuery()->execute();
+    }
 }
