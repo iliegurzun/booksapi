@@ -8,32 +8,14 @@
 
 namespace AppBundle\Service;
 
-
 use AppBundle\Entity\BookRepository;
-use Doctrine\ORM\EntityManager;
 
-class SqlDataProvider implements DataProviderInterface
+class SqlDataProvider extends AbstractDataProvider
 {
+    /** @const string */
     const SERVICE_NAME = 'app.sql_data_provider';
 
-    /**
-     * @var EntityManager
-     */
-    protected $provider;
-
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-    public function setProvider($provider)
-    {
-        $this->provider = $provider;
-
-        return $this;
-    }
-
-    public function makeSearch($params = array())
+    public function makeSearch(array $params = array())
     {
         /** @var BookRepository $repository */
         $repository = $this->getProvider()->getRepository('AppBundle:Book');

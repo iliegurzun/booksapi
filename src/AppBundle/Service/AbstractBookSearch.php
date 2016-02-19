@@ -9,12 +9,10 @@
 namespace AppBundle\Service;
 
 
-abstract class BaseBookSearch implements BookSearchInterface
+abstract class AbstractBookSearch
 {
-    const SERVICE_NAME = 'app.base_search';
-
     /**
-     * @var DataProviderInterface
+     * @var AbstractDataProvider
      */
     protected $dataProvider;
 
@@ -28,7 +26,7 @@ abstract class BaseBookSearch implements BookSearchInterface
     }
 
     /**
-     * @param DataProviderInterface $dataProvider
+     * @param AbstractDataProvider $dataProvider
      * @return $this
      */
     public function setDataProvider($dataProvider)
@@ -39,7 +37,7 @@ abstract class BaseBookSearch implements BookSearchInterface
     }
 
     /**
-     * @return DataProviderInterface
+     * @return AbstractDataProvider
      */
     public function getDataProvider()
     {

@@ -8,7 +8,7 @@
 
 namespace AppBundle\Service;
 
-class BookSearchService extends BaseBookSearch
+class BookSearchService extends AbstractBookSearch
 {
     /** @const string */
     const SERVICE_NAME = 'app.book_search';

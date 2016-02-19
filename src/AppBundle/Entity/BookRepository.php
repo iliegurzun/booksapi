@@ -17,15 +17,25 @@ class BookRepository extends EntityRepository
         $qb = $this->createQueryBuilder('b');
         if (!empty($params['isbn'])) {
             $qb->andWhere('b.isbn LIKE :isbn')
-                ->setParameter('isbn', sprintf('\%%s\%', $params['isbn']));
+                ->setParameter('isbn', sprintf('%%%s%%', $params['isbn']));
         }
         if (!empty($params['author'])) {
             $qb->andWhere('b.author LIKE :author')
-                ->setParameter('author', sprintf('\%%s\%', $params['author']));
+                ->setParameter('author', sprintf('%%%s%%', $params['author']));
         }
         if (!empty($params['title'])) {
             $qb->andWhere('b.title LIKE :title')
-                ->setParameter('title', sprintf('\%%s\%', $params['title']));
+                ->setParameter('title', sprintf('%%%s%%', $params['title']));
+        }
+        if (!empty($params['rating'])) {
+            $qb->join('b.ratings', 'r')
+                ->andWhere('r.rating = :rating')
+                ->setParameter('rating', $params['rating']);
+        }
+        if (!empty($params['start_date']) && !empty($params['end_date'])) {
+            $qb->andWhere('b.releaseDate BETWEEN :start_date AND :end_date')
+                ->setParameter('start_date', new \DateTime($params['start_date']))
+                ->setParameter('end_date', new \DateTime($params['end_date']));
         }
 
         return $qb->getQuery()->execute();
