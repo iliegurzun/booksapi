@@ -4,26 +4,17 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Book;
 use AppBundle\Service\BookSearchService;
+use AppBundle\Service\DataValidatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     /**
      * Find one or more books by search parameters
-     *
-     * @ApiDoc(
-     *   resource = true,
-     *   description = "Make interrogation for finding a book by several parameters",
-     *   output = "AppBundle\Entity\Book[]",
-     *   statusCodes = {
-     *     200 = "Returned when successful"
-     *   }
-     * )
-     *
-     * @Rest\View
      *
      * @return Book[]|array
      * @Rest\Post
@@ -33,7 +24,13 @@ class DefaultController extends Controller
     {
         /** @var BookSearchService $service */
         $service = $this->get(BookSearchService::SERVICE_NAME);
+        $data = $request->request->all();
+        /** @var DataValidatorService $validationService */
+        $validationService = $this->get(DataValidatorService::SERVICE_NAME);
+        if (!$validationService->validate($data)) {
+            return new Response('Bad data received!', 400);
+        }
 
-        return $service->search($request->request->all());
+        return $service->search($data);
     }
 }

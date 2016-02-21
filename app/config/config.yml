@@ -93,6 +93,8 @@ fos_rest:
             - { path: ^/api/doc, priorities: [ html ], fallback_format: html, prefer_extension: false }
             - { path: ^/api/*, priorities: [ json, xml ], fallback_format: json, prefer_extension: true }
             - { path: ^/, priorities: [ html ], fallback_format: html, prefer_extension: false }
-
-#Nelmio Api DOC Configuration
-nelmio_api_doc: ~
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: AppBundle\Migrations
+#    table_name: migration_versions
+    name: Books API Migrations

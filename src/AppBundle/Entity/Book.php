@@ -46,7 +46,7 @@ class Book
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="releaseDate", type="datetime")
+     * @ORM\Column(name="release_date", type="datetime")
      */
     private $releaseDate;
 

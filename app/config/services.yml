@@ -12,3 +12,5 @@ services:
         class: AppBundle\Service\BookSearchService
         calls:
             - [setDataProvider, [@app.sql_data_provider]]
+    app.data_validator:
+        class: AppBundle\Service\DataValidatorService

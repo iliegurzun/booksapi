@@ -29,7 +29,8 @@ class BookRepository extends EntityRepository
         }
         if (!empty($params['rating'])) {
             $qb->join('b.ratings', 'r')
-                ->andWhere('r.rating = :rating')
+                ->addSelect('MIN(r.rating) as min_rating')
+                ->andWhere('min_rating = :rating')
                 ->setParameter('rating', $params['rating']);
         }
         if (!empty($params['start_date']) && !empty($params['end_date'])) {
