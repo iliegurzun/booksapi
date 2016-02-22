@@ -8,7 +8,10 @@
 
 namespace AppBundle\Service;
 
-
+/**
+ * Class DataValidatorService
+ * @package AppBundle\Service
+ */
 class DataValidatorService
 {
     /** @const string */
@@ -23,9 +26,15 @@ class DataValidatorService
     {
         $valid = true;
         if (isset($data['start_date'])) {
+            if (!isset($data['end_date'])) {
+                return false;
+            }
             $valid = $this->validateDate($data['start_date']);
         }
         if (isset($data['end_date'])) {
+            if (!isset($data['start_date'])) {
+                return false;
+            }
             $valid = $this->validateDate($data['end_date']);
         }
 

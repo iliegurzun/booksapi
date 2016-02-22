@@ -30,7 +30,10 @@ class Version20160221200721 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('DELETE FROM book where id IN (1,2);');
+        $this->addSql('
+            DELETE FROM rating where id IN (1);
+            DELETE FROM book where id IN (1,2);
+            ');
 
     }
 }

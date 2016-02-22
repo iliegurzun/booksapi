@@ -12,6 +12,10 @@ use AppBundle\Service\BookSearchService;
 use AppBundle\Tests\BaseTest;
 use AppBundle\Service\AbstractDataProvider;
 
+/**
+ * Class BookSearchServiceTest
+ * @package AppBundle\Tests\Service
+ */
 class BookSearchServiceTest extends BaseTest
 {
 

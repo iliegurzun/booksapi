@@ -8,7 +8,10 @@
 
 namespace AppBundle\Service;
 
-
+/**
+ * Class AbstractBookSearch
+ * @package AppBundle\Service
+ */
 abstract class AbstractBookSearch
 {
     /**

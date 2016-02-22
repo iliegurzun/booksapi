@@ -5,6 +5,10 @@ namespace AppBundle\Tests\Controller;
 use AppBundle\Entity\Book;
 use AppBundle\Tests\BaseTest;
 
+/**
+ * Class DefaultControllerTest
+ * @package AppBundle\Tests\Controller
+ */
 class DefaultControllerTest extends BaseTest
 {
     public function testIndex()

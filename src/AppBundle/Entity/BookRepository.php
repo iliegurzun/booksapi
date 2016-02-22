@@ -12,9 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookRepository extends EntityRepository
 {
+    /**
+     * Searches all matching books
+     * @param array $params
+     * @return array
+     */
     public function searchByParameters($params = array())
     {
         $qb = $this->createQueryBuilder('b');
+        $qb
+            ->select('b as book, MIN(r.rating) as min_rating')
+            ->leftJoin('b.ratings', 'r');
         if (!empty($params['isbn'])) {
             $qb->andWhere('b.isbn LIKE :isbn')
                 ->setParameter('isbn', sprintf('%%%s%%', $params['isbn']));
@@ -28,10 +36,9 @@ class BookRepository extends EntityRepository
                 ->setParameter('title', sprintf('%%%s%%', $params['title']));
         }
         if (!empty($params['rating'])) {
-            $qb->join('b.ratings', 'r')
-                ->addSelect('MIN(r.rating) as min_rating')
-                ->andWhere('min_rating = :rating')
-                ->setParameter('rating', $params['rating']);
+            $qb->having('min_rating = :rating')
+                ->setParameter('rating', $params['rating'])
+                ->groupBy('min_rating');
         }
         if (!empty($params['start_date']) && !empty($params['end_date'])) {
             $qb->andWhere('b.releaseDate BETWEEN :start_date AND :end_date')

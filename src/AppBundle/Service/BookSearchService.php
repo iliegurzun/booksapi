@@ -8,6 +8,10 @@
 
 namespace AppBundle\Service;
 
+/**
+ * Class BookSearchService
+ * @package AppBundle\Service
+ */
 class BookSearchService extends AbstractBookSearch
 {
     /** @const string */

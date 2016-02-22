@@ -8,7 +8,10 @@
 
 namespace AppBundle\Service;
 
-
+/**
+ * Class AbstractDataProvider
+ * @package AppBundle\Service
+ */
 abstract class AbstractDataProvider
 {
     protected $provider;
